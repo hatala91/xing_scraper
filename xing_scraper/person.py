@@ -62,8 +62,8 @@ class Person(Scraper):
         driver = self.driver
         _ = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, "//div[@id='profile-xingid-container']")))
         profile_container = driver.find_element_by_xpath("//div[@id='profile-xingid-container']")
-        _ = WebDriverWait(profile_container, 3).until(EC.presence_of_element_located((By.TAG_NAME, "h2")))
-        self.name =  profile_container.find_element_by_tag_name("h2").text
+        _ = WebDriverWait(profile_container, 3).until(EC.presence_of_element_located((By.TAG_NAME, "h1")))
+        self.name =  ''.join([e.text for e in profile_container.find_elements_by_tag_name("h1")])
 
         # get interest
         try:
