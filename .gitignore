@@ -1,0 +1,7 @@
+*.swp
+xing_user_scraper.egg-info
+xing_scraper.egg-info
+dist
+build
+__pycache__
+*.pyc
