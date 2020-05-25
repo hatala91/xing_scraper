@@ -36,6 +36,15 @@ class Qualification:
     def __repr__(self):
         return self.title
 
+class Skill:
+    title = None
+    
+    def __init__(self, title = None):
+        self.title = title.decode('utf-8')
+    
+    def __repr__(self):
+        return self.title
+
 class Scraper(object):
     driver = None
 
