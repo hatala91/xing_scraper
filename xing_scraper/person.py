@@ -16,13 +16,8 @@ class Person(Scraper):
     qualifications = []
     xing_url = None
 
-    def __init__(self, xing_url = None, name = None, interests = [], accomplishments = [], organisations = [], qualifications = [], driver = None, get = True, scrape = True, close_on_complete = True):
+    def __init__(self, xing_url = None, driver = None, get = True, scrape = True, close_on_complete = True):
         self.xing_url = xing_url
-        self.name = name
-        self.interests = interests
-        self.accomplishments = accomplishments
-        self.organisations = organisations
-        self.qualifications = qualifications
 
         if driver is None:
             try:
