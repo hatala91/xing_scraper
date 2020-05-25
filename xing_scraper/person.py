@@ -66,7 +66,7 @@ class Person(Scraper):
 	# get skills
         try:
             _ = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, "//div[starts-with(@class, 'skills-skills-content-')]")))
-            skills = driver.find_element_by_xpath('//div[starts-with(@class, 'skills-skills-content-')]')
+            skills = driver.find_element_by_xpath("//div[starts-with(@class, 'skills-skills-content-')]")
             for skill in skills.find_elements_by_tag_name("button"):
                 self.add_skill(Skill(skill.get_property("value").encode('utf-8').strip()))
         except:
