@@ -114,4 +114,4 @@ class Person(Scraper):
             driver.close()
 
     def __repr__(self):
-        return "{name}\n\nInterest\n{int}\n\nAccomplishment\n{acc}\n\nOrganisation\n{org}\n\nQualification\n{quali}".format(name = self.name, int = self.interests, acc = self.accomplishments, org = self.organisations, quali = self.qualifications)
+        return "{name}\n\Skill(s)\n{ski}\n\nInterest(s)\n{int}\n\nAccomplishment(s)\n{acc}\n\nOrganisation(s)\n{org}\n\nQualification(s)\n{qua}".format(name = self.name, ski = self.skills, int = self.interests, acc = self.accomplishments, org = self.organisations, qua = self.qualifications)
