@@ -10,8 +10,8 @@ import os
 
 class Person(Scraper):
 
-    def __init__(self, xing_url = None, name = None, interests = [], accomplishments = [], organisations = [], qualifications = [], driver = None, get = True, scrape = True, close_on_complete = True):	    def __init__(self, xing_url = None, driver = None, get = True, scrape = True, close_on_complete = True):
-        self.xing_url = xing_url	        self.xing_url = xing_url
+    def __init__(self, xing_url = None, name = None, interests = [], accomplishments = [], organisations = [], qualifications = [], driver = None, get = True, scrape = True, close_on_complete = True):
+        self.xing_url = xing_url
         self.name = name	
         self.interests = interests	
         self.accomplishments = accomplishments	
