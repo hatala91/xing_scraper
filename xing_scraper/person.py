@@ -16,7 +16,7 @@ class Person(Scraper):
     qualifications = []
     xing_url = None
 
-    def __init__(self, xing_url = None, name = None, interests = [], accomplishments = [], organisations = [], qualifications = [], driver = None, get = True, scrape = True):
+    def __init__(self, xing_url = None, name = None, interests = [], accomplishments = [], organisations = [], qualifications = [], driver = None, get = True, scrape = True, close_on_complete = True):
         self.xing_url = xing_url
         self.name = name
         self.interests = interests
@@ -41,7 +41,7 @@ class Person(Scraper):
         self.driver = driver
 
         if scrape:
-            self.scrape()
+            self.scrape(close_on_complete)
 
     def add_interest(self, interest):
         self.interests.append(interest)
