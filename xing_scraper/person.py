@@ -17,7 +17,7 @@ class Person(Scraper):
         self.accomplishments = accomplishments
         self.organisations = organisations
         self.qualifications = qualifications
-	self.skills = skills
+        self.skills = skills
 
         if driver is None:
             try:
@@ -43,13 +43,13 @@ class Person(Scraper):
 
     def add_interest(self, interest):
         self.interests.append(interest)
-        
+
     def add_accomplishment(self, accomplishment):
         self.accomplishments.append(accomplishment)
 		
     def add_organisation(self, organisation):
         self.organisations.append(organisation)
-        
+
     def add_qualification(self, qualification):
         self.qualifications.append(qualification)
 
@@ -83,7 +83,7 @@ class Person(Scraper):
         except:
             pass
 
-	# get accomplishments
+        # get accomplishments
         try:
             _ = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, '//div[@id="awards"]')))
             accomplishments = driver.find_element_by_xpath('//div[@id="awards"]')
@@ -92,7 +92,7 @@ class Person(Scraper):
         except:
             pass
 
-	# get organisations
+        # get organisations
         try:
             _ = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, '//div[@id="organizations"]')))
             organisations = driver.find_element_by_xpath('//div[@id="organizations"]')
@@ -101,7 +101,7 @@ class Person(Scraper):
         except:
             pass
 
-	# get qualifications
+        # get qualifications
         try:
             _ = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, '//div[@id="qualifications"]')))
             qualifications = driver.find_element_by_xpath('//div[@id="qualifications"]')
