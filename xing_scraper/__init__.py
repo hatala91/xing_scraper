@@ -1,6 +1,6 @@
 from os.path import dirname, basename, isfile
 from .person import Person
-from .objects import Interest, Accomplishment, Organisation, Qualification
+from .objects import Interest, Accomplishment, Organisation, Qualification, Skill
 
 __version__ = "0.0.1"
 
