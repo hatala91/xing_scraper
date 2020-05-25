@@ -5,18 +5,19 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from .functions import time_divide
-from .objects import Interest, Accomplishment, Organisation, Qualification, Scraper
+from .objects import Interest, Accomplishment, Organisation, Qualification, Scraper, Skill
 import os
 
 class Person(Scraper):
 
-    def __init__(self, xing_url = None, name = None, interests = [], accomplishments = [], organisations = [], qualifications = [], driver = None, get = True, scrape = True, close_on_complete = True):
+    def __init__(self, xing_url = None, name = None, interests = [], accomplishments = [], organisations = [], qualifications = [], skills = [], driver = None, get = True, scrape = True, close_on_complete = True):
         self.xing_url = xing_url
-        self.name = name	
-        self.interests = interests	
-        self.accomplishments = accomplishments	
-        self.organisations = organisations	
-        self.qualifications = qualifications	
+        self.name = name
+        self.interests = interests
+        self.accomplishments = accomplishments
+        self.organisations = organisations
+        self.qualifications = qualifications
+	self.skills = skills
 
         if driver is None:
             try:
@@ -36,6 +37,9 @@ class Person(Scraper):
 
         if scrape:
             self.scrape(close_on_complete)
+
+    def add_skill(self, skill):
+        self.skills.append(skill)
 
     def add_interest(self, interest):
         self.interests.append(interest)
@@ -59,44 +63,53 @@ class Person(Scraper):
         _ = WebDriverWait(profile_container, 3).until(EC.presence_of_element_located((By.TAG_NAME, "h1")))
         self.name =  ''.join([e.text for e in profile_container.find_elements_by_tag_name("h1")])
 
-        # get interest
+	# get skills
+        try:
+            _ = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, "//div[starts-with(@class, 'skills-skills-content-')]")))
+            skills = driver.find_element_by_xpath('//div[starts-with(@class, 'skills-skills-content-')]')
+            for skill in skills.find_elements_by_tag_name("button"):
+                self.add_skill(Skill(skill.get_property("value").encode('utf-8').strip()))
+        except:
+            pass
+
+        # get interests
         try:
             _ = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, "//iframe[@title='tab-content']")))
             iFrame = driver.find_element_by_xpath("//iframe[@title='tab-content']")
             driver.switch_to.frame(iFrame)
-            int = driver.find_element_by_xpath('//div[@id="interests"]')
-            for interest in int.find_elements_by_tag_name("li"):
+            interests = driver.find_element_by_xpath('//div[@id="interests"]')
+            for interest in interests.find_elements_by_tag_name("li"):
                 self.add_interest(Interest(interest.text.encode('utf-8').strip()))
         except:
             pass
 
-		# get accomplishment
+	# get accomplishments
         try:
             _ = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, '//div[@id="awards"]')))
-            acc = driver.find_element_by_xpath('//div[@id="awards"]')
-            for accomplishment in acc.find_elements_by_tag_name("li"):
+            accomplishments = driver.find_element_by_xpath('//div[@id="awards"]')
+            for accomplishment in accomplishments.find_elements_by_tag_name("li"):
                 self.add_accomplishment(Accomplishment(accomplishment.text.encode('utf-8').strip()))
         except:
             pass
 
-		# get organisation
+	# get organisations
         try:
             _ = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, '//div[@id="organizations"]')))
-            org = driver.find_element_by_xpath('//div[@id="organizations"]')
-            for organisation in org.find_elements_by_tag_name("li"):
+            organisations = driver.find_element_by_xpath('//div[@id="organizations"]')
+            for organisation in organisations.find_elements_by_tag_name("li"):
                 self.add_organisation(Organisation(organisation.text.encode('utf-8').strip()))
         except:
             pass
-            
-		# get qualification
+
+	# get qualifications
         try:
             _ = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, '//div[@id="qualifications"]')))
-            quali = driver.find_element_by_xpath('//div[@id="qualifications"]')
-            for qualification in quali.find_elements_by_tag_name("li"):
+            qualifications = driver.find_element_by_xpath('//div[@id="qualifications"]')
+            for qualification in qualifications.find_elements_by_tag_name("li"):
                 self.add_qualification(Qualification(qualification.text.encode('utf-8').strip()))
         except:
             pass
-            
+
         if close_on_complete:
             driver.close()
 
